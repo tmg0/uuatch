@@ -9,11 +9,11 @@ const html = ref('')
 const shadowRoot = ref()
 
 const onPreviewURL = async () => {
-  const { data } = await useFetch<string>('/api/parsers/dom', { method: 'POST', body: { url } })
+  const { data } = await useFetch<string>(`/api/foci/${0}/sources`, { method: 'POST', body: { url } })
   html.value = data.value ?? ''
 }
 
-const onSelectTarget = ({ element, text }: DOMSelectEvent) => {
+const onSelectDOM = ({ element, text }: DOMSelectEvent) => {
   console.log(element)
   console.log(text)
 }
@@ -29,7 +29,7 @@ const onSelectTarget = ({ element, text }: DOMSelectEvent) => {
     </div>
 
     <div class="flex-1">
-      <DomPicker :document="shadowRoot" @select="onSelectTarget" />
+      <DomPicker v-if="shadowRoot" :document="shadowRoot" @select="onSelectDOM" />
       <ShadowDom v-model:shadow-root="shadowRoot" :html="html" />
     </div>
   </div>

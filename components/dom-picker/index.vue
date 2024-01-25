@@ -3,7 +3,6 @@ import { computed, reactive } from 'vue'
 import { useElementBounding, useElementByPoint, useEventListener, useMouse, useTextSelection, watchDebounced } from '@vueuse/core'
 
 const props = defineProps<{ document?: ShadowRoot }>()
-
 const emit = defineEmits<{ select:({ element: HTMLElement, text: string }) => void }>()
 
 const { x, y } = useMouse({ type: 'client' })
