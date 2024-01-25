@@ -22,10 +22,10 @@ const onSelectDOM = ({ element, text }: DOMSelectEvent) => {
 <template>
   <div class="flex h-full w-full">
     <div class="flex-1">
-      <input v-model="url">
-      <button @click="onPreviewURL">
-        go
-      </button>
+      <UInput v-model="url" />
+      <UButton @click="onPreviewURL">
+        go ->
+      </UButton>
     </div>
 
     <div class="flex-1">
