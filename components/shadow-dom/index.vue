@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useVModel } from '@vueuse/core'
-
 interface Props {
   html: string
   shadowRoot?: ShadowRoot
