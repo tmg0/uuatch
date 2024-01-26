@@ -11,6 +11,9 @@ dependencies:
   '@vueuse/core':
     specifier: ^10.7.2
     version: 10.7.2(vue@3.4.15)
+  defu:
+    specifier: ^6.1.4
+    version: 6.1.4
 
 devDependencies:
   '@nuxtjs/eslint-config-typescript':

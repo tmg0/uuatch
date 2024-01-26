@@ -1,22 +1,28 @@
 <script lang="ts" setup>
 import { computed, reactive } from 'vue'
-import { useElementBounding, useElementByPoint, useEventListener, useMouse, useTextSelection, watchDebounced } from '@vueuse/core'
+import { defu } from 'defu'
+import { useElementBounding, useElementByPoint, useEventListener, useMouse, useTextSelection } from '@vueuse/core'
 
-const props = defineProps<{ document?: ShadowRoot }>()
-const emit = defineEmits<{ select:({ element: HTMLElement, text: string }) => void }>()
+interface Props {
+  boxStyle?: Record<string, string | number>
+  document?: ShadowRoot
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits(['select'])
 
 const { x, y } = useMouse({ type: 'client' })
-const { element, pause, resume } = useElementByPoint({ x, y, document: props.document })
+const { element, pause, resume } = useElementByPoint({ x, y, document: props.document as unknown as Document })
 const bounding = reactive(useElementBounding(element))
 const { text } = useTextSelection()
 
-watchDebounced(text, (value) => { value ? onSelect() : resume() }, { debounce: 500, maxWait: 1000 })
+watch(text, (value) => { value ? onSelect() : resume() })
 
 useEventListener('scroll', bounding.update, true)
 
 const boxStyles = computed(() => {
   if (element.value) {
-    return {
+    return defu({
       display: 'block',
       width: `${bounding.width}px`,
       height: `${bounding.height}px`,
@@ -24,7 +30,7 @@ const boxStyles = computed(() => {
       top: `${bounding.top}px`,
       backgroundColor: '#3eaf7c44',
       transition: 'all 0.05s linear'
-    } as Record<string, string | number>
+    }, props.boxStyle ?? {})
   }
   return {
     display: 'none'
