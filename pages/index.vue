@@ -20,17 +20,21 @@ const onSelectDOM = ({ element, text }: DOMSelectEvent) => {
 </script>
 
 <template>
-  <div class="flex h-full w-full">
-    <div class="w-1/2">
-      <UInput v-model="url" />
-      <UButton @click="onPreviewURL">
-        go ->
-      </UButton>
-    </div>
+  <div class="w-full h-full p-6 bg-slate-300">
+    <UCard class="h-full">
+      <template #header>
+        <div class="flex items-center gap-2">
+          <UInput v-model="url" />
+          <UButton @click="onPreviewURL">
+            go ->
+          </UButton>
+        </div>
+      </template>
 
-    <div class="w-1/2 h-full overflow-x-hidden overflow-y-auto">
-      <DomPicker v-if="shadowRoot" :document="shadowRoot" @select="onSelectDOM" />
-      <ShadowDom v-model:shadow-root="shadowRoot" :html="html" />
-    </div>
+      <div class="h-full overflow-auto">
+        <DomPicker v-if="shadowRoot" :document="shadowRoot" @select="onSelectDOM" />
+        <ShadowDom v-model:shadow-root="shadowRoot" :html="html" />
+      </div>
+    </UCard>
   </div>
 </template>
