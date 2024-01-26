@@ -9,7 +9,7 @@ const html = ref('')
 const shadowRoot = ref()
 
 const onPreviewURL = async () => {
-  const { data } = await useFetch<string>(`/api/foci/${0}/sources`, { method: 'POST', body: { url } })
+  const { data } = await useFetch<string>('/api/actions/dom', { query: { url } })
   html.value = data.value ?? ''
 }
 
