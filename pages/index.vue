@@ -21,14 +21,14 @@ const onSelectDOM = ({ element, text }: DOMSelectEvent) => {
 
 <template>
   <div class="flex h-full w-full">
-    <div class="flex-1">
+    <div class="w-1/2">
       <UInput v-model="url" />
       <UButton @click="onPreviewURL">
         go ->
       </UButton>
     </div>
 
-    <div class="flex-1">
+    <div class="w-1/2 h-full overflow-x-hidden overflow-y-auto">
       <DomPicker v-if="shadowRoot" :document="shadowRoot" @select="onSelectDOM" />
       <ShadowDom v-model:shadow-root="shadowRoot" :html="html" />
     </div>
