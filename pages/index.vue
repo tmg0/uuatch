@@ -14,7 +14,8 @@ const onPreviewURL = async () => {
 }
 
 const onSelectDOM = ({ element, text }: DOMSelectEvent) => {
-  console.log(element)
+  const { xpath } = useXPath(element)
+  console.log(xpath.value)
   console.log(text)
 }
 </script>
